@@ -4,8 +4,8 @@
 
 void ConvertFormat(char* array, int firstIdx, int lastIdx, int* var)
 {
-    char temp[16] = {'\0',};
-    int idx = 0;
+    char temp[16] = {'\0',};    // temp 배열 초기화
+    int idx = 0;                // 반복 횟수를 저장하는 변수 초기화
 
     for(int i = firstIdx; i < lastIdx + 1; i++)
     {
@@ -13,10 +13,10 @@ void ConvertFormat(char* array, int firstIdx, int lastIdx, int* var)
         idx++;
     }
     
+    // atio : 숫자로 이루어진 문자열을 정수로 바꾸어주는 함수
+    // 변수를 포인터로 접근하여 직접 값을 바꾼다.
     *var = atoi(temp);
 }
-
-
 
 int main()
 {
