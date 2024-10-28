@@ -4,16 +4,16 @@
 
 int main(void)
 {
-    char* member_info[10] = {
-        "성 명", "생 일", "성 별", "메 일", "국 적", "BMI", "주 스킬", "보조 스킬", "한국어 등급", "MBTI"
+    char* member_info[11] = {
+        "성 명", "생 일", "성 별", "메 일", "국 적", "BMI", "주 스킬", "보조 스킬", "한국어 등급", "MBTI", "소개"
         };
 
-    char candidate01[10][100];
-    char candidate02[10][100];
-    char candidate03[10][100];
-    char candidate04[10][100];
-    char candidate05[10][100];
-    char candidate06[10][100];
+    char candidate01[11][100];
+    char candidate02[11][100];
+    char candidate03[11][100];
+    char candidate04[11][100];
+    char candidate05[11][100];
+    char candidate06[11][100];
 
 
     // 입력창 출력
@@ -21,7 +21,7 @@ int main(void)
     char* idx_char;
 
     int candidate_num = 6;
-    int attribute_num = 10;
+    int attribute_num = 11;
 
     // 회사명 입력 //
     char comp_name[1024];
@@ -65,7 +65,10 @@ int main(void)
         {
             if (i == 1)
             {
-                printf("%d. %s (YYYY/MM/DD 형식): ",i+1,member_info[i]);
+                char birthday[100];
+                printf("%d. %s (YYYY/MM/DD 형식): ",i+1,birthday);
+                // birthday format 변환해서 member_info[i]에 저장하기
+                
             }
             else if (i == 2)
             {
@@ -93,7 +96,7 @@ int main(void)
                 
         }
 
-        printf("=================================");
+        printf("=================================\n");
         
         idx_num ++;
         candidate_num --;
@@ -102,8 +105,56 @@ int main(void)
 
 
     // 후보자 정보 출력
+    candidate_num = 6;
+    attribute_num = 11;
 
-    
+    for(int i = 0; i < candidate_num; i++)
+    {
+        printf("####################################\n");
+        printf("     [%s] 오디션 후보자 데이터 조회\n",comp_name);
+        printf("####################################\n");
+        printf("=============================================================================================\n");
+        printf("성   명 | 생   일 | 성별 | 메   일            | 국적 | BMI | 주스킬 | 보조스킬 | TOPIK | MBTI |       \n");
+        printf("=============================================================================================\n");
+
+        for(int j = 0; j < attribute_num; j++)
+        {
+            if(j < attribute_num - 1)
+            {
+                switch(i)
+                {
+                    case 0 : printf(" %s ", candidate01[j]); break;
+                    case 1 : printf(" %s ", candidate02[j]); break;
+                    case 2 : printf(" %s ", candidate03[j]); break;
+                    case 3 : printf(" %s ", candidate04[j]); break;
+                    case 4 : printf(" %s ", candidate05[j]); break;
+                    case 5 : printf(" %s ", candidate06[j]); break;
+                    default : break;
+                }
+            }
+            else
+            {
+                printf("\n-------------------------------------------------------------------------------------\n");
+                switch(i)
+                {
+                    case 0 : printf(" %s ", candidate01[j]); break;
+                    case 1 : printf(" %s ", candidate02[j]); break;
+                    case 2 : printf(" %s ", candidate03[j]); break;
+                    case 3 : printf(" %s ", candidate04[j]); break;
+                    case 4 : printf(" %s ", candidate05[j]); break;
+                    case 5 : printf(" %s ", candidate06[j]); break;
+                    default : break;
+                }
+                printf("\n-------------------------------------------------------------------------------------\n");
+            }
+
+            printf("|");
+        }
+ 
+        printf("\n---------------------------------------------------------------------------------------------\n");
+        
+
+    }
 
 
     return 0;
