@@ -30,33 +30,80 @@ int main(void)
     {
         char* temp = (char*)malloc(1024);
         
-        printf("*심사자 %d: ", judges_num-judge_count+1);
+        if(temp == NULL) 
+        {
+            printf("메모리 할당 실패");
+            return 1;
+        }
+
+        printf("*심사자 %d: ", judges_num - judge_count + 1);
         scanf("%s",temp); 
 
+        
         int confirm_count = 0;
-        
-        if(temp != NULL)
+        int temp_length = 0;
+
+        while(temp[temp_length] != '\0')
         {
-            for(int i = 0; i < sizeof(temp) * sizeof(char); i++)
-            {
-                if(temp[i] == ',') confirm_count++;
-            }
+            if(temp[temp_length] == ',') confirm_count++;
+
+            temp_length++;
         }
-        
+
         if(confirm_count != 6) 
         {
-            printf("정확한 데이터를 입력해 주세요.");
+            printf("입력 항목이 정확하지 않습니다. 다시 입력해주세요\n");
             free(temp);
             confirm_count = 0;
         }
         else
         {
             // judges_array 재할당 후 temp 데이터 추가
-            judge_count--;
-        }
-        
 
+            judge_count--;
+            free(temp);
+        }
     }
+
+    printf("++++++++++++++++++++++++++++++++++++\n");
+    printf("심사자 풀 입력이 끝났습니다.\n");
+    printf("++++++++++++++++++++++++++++++++++++\n");
+
+    char confirm;
+
+    do
+    {
+        printf("[%s]심사자 풀을 확인할까요? (Y/N)",project_name);
+        scanf(" %c",&confirm); // 개행 문자 방지용 공백
+
+        switch(confirm)
+        {
+            case 'Y': 
+                printf("####################################\n");
+                printf("#       심사자 풀 데이터 출력       #\n");
+                printf("####################################\n");
+            
+                for(int i = 0; i < judges_num; i++)
+                {
+                    printf("[심사자 %d]\n",i);
+                    // json 데이터 파싱해서 출력
+                    printf("-----------------------------------\n");
+                }
+            
+            break;
+            
+            case 'N': printf("심사자 풀 확인을 취소했습니다."); break;
+
+            default:
+                confirm = '\0';
+                printf("다시 입력해 주세요.\n");
+        }
+    }
+    while(confirm != 'Y' && confirm != 'N');
+    
+    
+    
+
 
     return 0;
 }
