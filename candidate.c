@@ -4,158 +4,123 @@
 
 int main(void)
 {
-    char* member_info[11] = {
-        "성 명", "생 일", "성 별", "메 일", "국 적", "BMI", "주 스킬", "보조 스킬", "한국어 등급", "MBTI", "소개"
-        };
+    typedef struct member_info
+    {
+        char name[100];
+        char birthday[100];
+        char gender[100];
+        char mail_addr[100];
+        char country[100];
+        char BMI[100];
+        char main_skill[100];
+        char sub_skill[100];
+        char korean_skill[100];
+        char MBTI[100];
+        char introduction[1024];
+    } member_info;
 
-    char candidate01[11][100];
-    char candidate02[11][100];
-    char candidate03[11][100];
-    char candidate04[11][100];
-    char candidate05[11][100];
-    char candidate06[11][100];
+    char company_name[100];
 
+    member_info candidate01;
+    member_info candidate02;
+    member_info candidate03;
+    member_info candidate04;
+    member_info candidate05;
+    member_info candidate06;
 
-    // 입력창 출력
-    int idx_num = 1; 
-    char* idx_char;
+    member_info members[6] = {candidate01, candidate02, candidate03, candidate04, candidate05, candidate06};
 
-    int candidate_num = 6;
-    int attribute_num = 11;
-
-    // 회사명 입력 //
-    char comp_name[1024];
-    char comp_ch_temp;
-    int comp_ch_count = 0;
-
-    printf("회사명을 입력하세요 : ");
+    printf("\n회사명을 입력하세요 : ");
+    int t = 0;
     while(1)
     {
-        comp_ch_temp = getchar();
-        if(comp_ch_temp == '\n') break;
+        char key = getchar();
+        if(key == '\n') break;
 
-        comp_name[comp_ch_count++] = comp_ch_temp;
+        company_name[t++] = key;
     }
-
-    comp_name[comp_ch_count] = '\0';
+    company_name[t] = '\0';
 
     printf("####################################\n");
-    printf("     [%s] 오디션 후보자 데이터 입력\n",comp_name);
+    printf("     [%s] 오디션 후보자 데이터 입력\n", company_name);
     printf("####################################\n");
 
-
-
-    while(candidate_num > 0)
+    for(int candidate_count = 1; candidate_count < 7; candidate_count++)
     {
-        switch(idx_num)
+        char* order;
+        member_info cur_candidate;
+
+        switch(candidate_count)
         {
-            case 1 : {idx_char = "첫"; break;}
-            case 2 : {idx_char = "두"; break;}
-            case 3 : {idx_char = "세"; break;}
-            case 4 : {idx_char = "네"; break;}
-            case 5 : {idx_char = "다섯"; break;}
-            case 6 : {idx_char = "여섯"; break;}
+            case 1: order = "첫"; break;
+            case 2: order = "두"; break;
+            case 3: order = "세"; break;
+            case 4: order = "네"; break;
+            case 5: order = "다섯"; break;
+            case 6: order = "여섯"; break;
             default : break;
         }
 
-        printf("%s 번째 후보자의 정보를 입력합니다.\n", idx_char);
+        printf("%s 번째 후보자의 정보를 입력합니다.\n", order);
         printf("---------------------------------\n");
-        
-        for(int i = 0; i < attribute_num; i++)
+        printf("1. 성명: ");   
+        scanf("%s", members[candidate_count-1].name);
+        printf("2. 생일(YYYY/MM/DD 형식): ");
+        char birthday_buffer[10];
+        scanf("%s", birthday_buffer);
+        int n = 0;
+        for(int i = 0; i < 10; i++)
         {
-            if (i == 1)
-            {
-                char birthday[100];
-                printf("%d. %s (YYYY/MM/DD 형식): ",i+1,birthday);
-                // birthday format 변환해서 member_info[i]에 저장하기
-                
-            }
-            else if (i == 2)
-            {
-                printf("%d. %s (여성이면 F 또는 남성이면 M): ",i+1,member_info[i]);
-            }
-            else if (i == 8)
-            {
-                printf("%d. %s (TOPIK): ",i+1,member_info[i]);
-            }
-            else
-            {
-                printf("%d. %s : ",i+1,member_info[i]);
-            }
-            
-            switch(idx_num)
-            {
-                case 1 : {scanf("%s", candidate01[i]); break;}
-                case 2 : {scanf("%s", candidate02[i]); break;}
-                case 3 : {scanf("%s", candidate03[i]); break;}
-                case 4 : {scanf("%s", candidate04[i]); break;}
-                case 5 : {scanf("%s", candidate05[i]); break;}
-                case 6 : {scanf("%s", candidate06[i]); break;}
-                default : break;
-            }
-                
+            if(birthday_buffer[i]!= '/') members[candidate_count-1].birthday[n++] = birthday_buffer[i];
         }
-
+        printf("3. 성별(여성이면 F 또는 남성이면 M):");
+        scanf("%s",members[candidate_count-1].gender);
+        printf("4. 메일 주소: ");
+        scanf("%s", members[candidate_count-1].mail_addr);
+        printf("5. 국적: ");
+        scanf("%s", members[candidate_count-1].country);
+        printf("6. BMI: ");
+        scanf("%s", members[candidate_count-1].BMI);
+        printf("7. 주 스킬: ");
+        scanf("%s", members[candidate_count-1].main_skill);
+        printf("8. 보조 스킬: ");
+        scanf("%s", members[candidate_count-1].sub_skill);
+        printf("9. 한국어 등급: ");
+        scanf("%s", members[candidate_count-1].korean_skill);
+        printf("10. MBTI: ");
+        scanf("%s", members[candidate_count-1].MBTI);
+        printf("11. 소개: ");
+        scanf("%s", members[candidate_count-1].introduction);
         printf("=================================\n");
-        
-        idx_num ++;
-        candidate_num --;
     }
 
 
+    printf("####################################\n");
+    printf("    [%s] 오디션 후보자 데이터 조회\n",company_name);
+    printf("####################################\n");
 
-    // 후보자 정보 출력
-    candidate_num = 6;
-    attribute_num = 11;
 
-    for(int i = 0; i < candidate_num; i++)
+    for(int candidate_count = 1; candidate_count < 7; candidate_count++)
     {
-        printf("####################################\n");
-        printf("     [%s] 오디션 후보자 데이터 조회\n",comp_name);
-        printf("####################################\n");
-        printf("=============================================================================================\n");
-        printf("성   명 | 생   일 | 성별 | 메   일            | 국적 | BMI | 주스킬 | 보조스킬 | TOPIK | MBTI |       \n");
-        printf("=============================================================================================\n");
+        char* gender_buffer;
+        if(members[candidate_count - 1].gender[0] == 'F') gender_buffer = "여";
+        else if (members[candidate_count - 1].gender[0] == 'M') gender_buffer = "남";
+        else gender_buffer = "알 수 없음";
 
-        for(int j = 0; j < attribute_num; j++)
-        {
-            if(j < attribute_num - 1)
-            {
-                switch(i)
-                {
-                    case 0 : printf(" %s ", candidate01[j]); break;
-                    case 1 : printf(" %s ", candidate02[j]); break;
-                    case 2 : printf(" %s ", candidate03[j]); break;
-                    case 3 : printf(" %s ", candidate04[j]); break;
-                    case 4 : printf(" %s ", candidate05[j]); break;
-                    case 5 : printf(" %s ", candidate06[j]); break;
-                    default : break;
-                }
-            }
-            else
-            {
-                printf("\n-------------------------------------------------------------------------------------\n");
-                switch(i)
-                {
-                    case 0 : printf(" %s ", candidate01[j]); break;
-                    case 1 : printf(" %s ", candidate02[j]); break;
-                    case 2 : printf(" %s ", candidate03[j]); break;
-                    case 3 : printf(" %s ", candidate04[j]); break;
-                    case 4 : printf(" %s ", candidate05[j]); break;
-                    case 5 : printf(" %s ", candidate06[j]); break;
-                    default : break;
-                }
-                printf("\n-------------------------------------------------------------------------------------\n");
-            }
-
-            printf("|");
-        }
- 
-        printf("\n---------------------------------------------------------------------------------------------\n");
-        
+        printf("=============================================================================================\n");
+        printf("성   명 | 생   일 | 성별 | 메   일            | 국적 | BMI | 주스킬 | 보조스킬 | TOPIK | MBTI |  \n");
+        printf("=============================================================================================\n");
+        printf("%s | %s | %s | %s | %s | %s | %s | %s | %s | %s\n",
+                members[candidate_count-1].name,members[candidate_count-1].birthday,
+                gender_buffer, members[candidate_count-1].mail_addr,
+                members[candidate_count-1].country, members[candidate_count-1].BMI,
+                members[candidate_count-1].main_skill, members[candidate_count-1].sub_skill,
+                members[candidate_count-1].korean_skill, members[candidate_count-1].MBTI                
+        );
+        printf("        -------------------------------------------------------------------------------------\n");
+        printf("%s\n", members[candidate_count-1].introduction);
+        printf("---------------------------------------------------------------------------------------------\n");
 
     }
-
-
     return 0;
 }
