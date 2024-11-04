@@ -78,28 +78,25 @@ int main(void) {
                     printf("[심사자 %d]\n", i + 1);
                     printf("\n");
 
-                    // 필드명 배열
-                    const char* fields[] = { "이름", "성별", "소속", "직함", "전문 분야", "메일", "전화" };
+                    //몇 번째 출력인지 확인
                     int field_index = 0;
 
                     // 쉼표 기준으로 파싱하여 출력
                     int start = 0;
-                    // 0부터 j7번째 필드까지 char 요소 하나 하나 확인
+                    // 0부터 6번 필드까지 char 요소 하나 하나 확인
                     for (int j = 0; judges_array[i * MAX_JUDGE_INFO_LEN + j] != '\0' && field_index < 7; j++) 
                     {
+
                         if (judges_array[i * MAX_JUDGE_INFO_LEN + j] == ',' || judges_array[i * MAX_JUDGE_INFO_LEN + j + 1] == '\0') 
                         {
-                            // 현재 이름 출력이면 
-                            // 이름 : 
-                            // 까지 출력
-                            printf("  %s  \t: ", fields[field_index]);
-
                             // 필드 값 출력
                             // judges_array : "1_이름,1_성별,1_소속,...","2_이름,2_성별,..."
                             // 예) 김철수,남자,우송대학교...
                             int end = (judges_array[i * MAX_JUDGE_INFO_LEN + j] == ',') ? j : j + 1;
+
                             for (int k = start; k < end; k++) 
                             {
+                                if(judges_array[i * MAX_JUDGE_INFO_LEN + k] == '\"') continue;
                                 // 1_이름 출력 순서면 김 철 수 순으로 출력
                                 putchar(judges_array[i * MAX_JUDGE_INFO_LEN + k]);
                             }
