@@ -27,10 +27,11 @@ int main(void) {
     char* judges_array = (char*)malloc(judges_num * MAX_JUDGE_INFO_LEN);
     if (judges_array == NULL) { printf("메모리 할당 실패\n");  return 1;}
 
-    for (int i = 0; i < judges_num; i++) 
+    int input_count = 0;
+    while(input_count < judges_num)
     {
         char temp[MAX_JUDGE_INFO_LEN]; // 입력받은 정보를 임시로 저장할 배열
-        printf("* 심사자 %d (이름,성별,소속,직함,전문분야,메일,전화): ", i + 1);
+        printf("* 심사자 %d (이름,성별,소속,직함,전문분야,메일,전화): ", input_count + 1);
         scanf(" %[^\n]", temp); // 띄어쓰기 포함 입력
 
         // 입력된 항목 개수 확인
@@ -43,17 +44,18 @@ int main(void) {
         if (confirm_count != 6) 
         {
             printf("입력 항목이 정확하지 않습니다. 다시 입력해주세요.\n");
-            i--; // 다시 입력하도록 인덱스를 감소시킴
+            input_count--; // 다시 입력하도록 인덱스를 감소시킴
         } 
         else
         {
             // 문자열 복사
             for (int j = 0; j < MAX_JUDGE_INFO_LEN - 1 && temp[j] != '\0'; j++) 
             {
-                judges_array[i * MAX_JUDGE_INFO_LEN + j] = temp[j];
+                judges_array[input_count * MAX_JUDGE_INFO_LEN + j] = temp[j];
             }
-            judges_array[(i + 1) * MAX_JUDGE_INFO_LEN - 1] = '\0'; // 문자열 종료
+            judges_array[(input_count + 1) * MAX_JUDGE_INFO_LEN - 1] = '\0'; // 문자열 종료
         }
+        input_count++;
     }
 
     printf("++++++++++++++++++++++++++++++++++++\n");
